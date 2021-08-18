@@ -2,12 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="global.css">
     <title>Fire Emblem: Three Houses</title>
   </head>
   <body>
     <h1>Lunch Buddies</h1>
-
-    <select id="person1" onchange="findDishes()">
+<div id="friendSelect">
+    <select class="selectButton" id="person1" onchange="findDishes()">
       <option value="Alois">Alois</option>
       <option value="Anna">Anna</option>
       <option value="Annette">Annette</option>
@@ -48,7 +49,11 @@
       <option value="Sylvain">Sylvain</option>
       <option value="Yuri">Yuri</option>
     </select>
-    <select id="person2" onchange="findDishes()">
+    <div class="flourish">
+      <p class="flourishText">and</p>
+      <hr class="throughLine">
+    </div>
+    <select class="selectButton" id="person2" onchange="findDishes()">
       <option value="Alois">Alois</option>
       <option value="Anna">Anna</option>
       <option value="Annette">Annette</option>
@@ -92,6 +97,7 @@
     <span id="support"></span>
     <p id="dishes">
     </p>
+  </div>
   </body>
 
   <script>
@@ -101,7 +107,7 @@
         'Edelgard', 'Hubert', 'Ferdinand', 'Linhardt', 'Caspar', 'Bernadetta', 'Dorothea', 'Petra',
         'Dimitri', 'Dedue', 'Felix', 'Ashe', 'Sylvain', 'Mercedes', 'Annette', 'Ingrid',
         'Claude', 'Lorenz', 'Raphael', 'Ignatz', 'Lysithea', 'Marianne', 'Hilda', 'Leonie',
-        'Seteth', 'Flayn', 'Hanneman', 'Manuela', 'Gilbert', 'Alios', 'Catherine', 'Shamir', 'Cyril',
+        'Seteth', 'Flayn', 'Hanneman', 'Manuela', 'Gilbert', 'Alois', 'Catherine', 'Shamir', 'Cyril',
         'Rhea', 'Sothis',
       ];
       var levels = [

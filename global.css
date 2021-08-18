@@ -1,0 +1,37 @@
+body {
+    font-size: 100%;
+    margin: 1vw;
+}
+
+input, select, textarea {
+    font-size: 100%;
+}
+
+#friendSelect {
+    margin: 2em;
+}
+
+.selectButton {
+    display: block;
+    padding: 1em;
+    width: 100%;
+}
+
+.flourish {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 2em 0;
+}
+
+.throughLine {
+    border: 1px solid black;
+    display: block;
+    width: 100%;
+}
+
+.flourishText {
+    background: white;
+    padding: .5em 1em;
+    position: absolute;
+}
