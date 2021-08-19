@@ -12,7 +12,9 @@ h1 {
 }
 
 #friendSelect {
-    margin: 2em;
+    margin: 2em auto;
+    max-width: 640px;
+    background-color: white;
 }
 
 .selectButton {
