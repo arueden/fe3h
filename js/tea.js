@@ -719,7 +719,7 @@ var tea = {
       "'Nod', 'Commend', or 'Praise' sparring with our sword relics soon",
       "'Sip Tea' or 'Laugh' at we should train together",
       "'Admonish', 'Sip Tea', or 'Blush' at wondering what you like when you're nervous",
-      "'Sip Tea', 'Blush', or 'Disagree' at your nickname is good but not as good as Thunder Catherine", "
+      "'Sip Tea', 'Blush', or 'Disagree' at your nickname is good but not as good as Thunder Catherine",
     ],
   },
 
