@@ -23,7 +23,7 @@
   <body>
     <div id="friendSelect">
       <h1>Select Dining Companions</h1>
-        <select class="selectButton" id="person1" onchange="findDishes()">
+        <select class="selectButton" id="person1" onchange="refreshResults()">
           <option value="Alois">Alois</option>
           <option value="Anna">Anna</option>
           <option value="Annette">Annette</option>
@@ -68,7 +68,7 @@
           <p class="flourishText">and</p>
           <hr class="throughLine">
         </div>
-        <select class="selectButton" id="person2" onchange="findDishes()">
+        <select class="selectButton" id="person2" onchange="refreshResults()">
           <option value="Alois">Alois</option>
           <option value="Anna">Anna</option>
           <option value="Annette">Annette</option>
@@ -119,111 +119,15 @@
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/lunch.js"></script>
+  <script src="js/support.js"></script>
   <script src="js/tea.js"></script>
   <script>
-    function supports(p1, p2) {
-      var people = [
-        'Byleth (M)', 'Byleth (F)',
-        'Edelgard', 'Hubert', 'Ferdinand', 'Linhardt', 'Caspar', 'Bernadetta', 'Dorothea', 'Petra',
-        'Dimitri', 'Dedue', 'Felix', 'Ashe', 'Sylvain', 'Mercedes', 'Annette', 'Ingrid',
-        'Claude', 'Lorenz', 'Raphael', 'Ignatz', 'Lysithea', 'Marianne', 'Hilda', 'Leonie',
-        'Seteth', 'Flayn', 'Hanneman', 'Manuela', 'Gilbert', 'Alois', 'Catherine', 'Shamir', 'Cyril',
-        'Rhea', 'Sothis',
-      ];
-      var levels = [
-        '-',
-        '--',
-        'SS-',
-        'ASA-',
-        'ASAA-',
-        'SSABB-',
-        'ASABBA-',
-        'SAAAAAA-',
-        'SSAAAAAB-',
-        'SABAAAABA-',
-        'AS---------',
-        'AS--------A-',
-        'AS-----AA-AB-',
-        'AS----A--ABAB-',
-        'AS-----BA-BBAB-',
-        'SS--A-----AAAAA-',
-        'SA---AA---AAAABA-',
-        'SA-----BB-AAAAABB-',
-        'AS-------A------AA-',
-        'AS--B---A-----BA--A-',
-        'AS----BA--B------ABB-',
-        'AS-------A-----A-ABBA-',
-        'SAA--A------A-B-B-AAAA-',
-        'SA--AA----A--AB---AAAAB-',
-        'SA--A-A-------BBB-AAAABA-',
-        'SA-----B----A-B---AAAABBB-',
-        'AS-----A----B----A------AA-',
-        'SA--AA----AAA-B---A-AA----A-',
-        'ASAB-B--A-------A-----AA--B--',
-        'SAA-A---A-----B----A------AAA-',
-        'SS--------AB-B--A-----------BB-',
-        'SS-----A-BB----A---------A--BAB-',
-        'SA---AA---A--A---B-A--B--BA---BA-',
-        'SA-A--A--B-A------A-AA---A-----AA-',
-        'AS-------A---A-B--B--BA-A-A--B---A-',
-        'SS----------------------------------',
-        'SS-----------------------------------',
-      ];
-      var i1 = people.indexOf(p1);
-      var i2 = people.indexOf(p2);
-      if (i1 < 0 || i2 < 0) return '-';
-      if (i1 < i2) {
-        var t = i1;
-        i1 = i2;
-        i2 = t;
-      }
-      return levels[i1].charAt(i2);
-    }
-
-    function findDishes() {
-      var dishes = {
-        'Saghert and Cream': ['Edelgard', 'Dimitri', 'Ferdinand', 'Linhardt', 'Bernadetta', 'Dorothea', 'Ashe', 'Mercedes', 'Annette', 'Lorenz', 'Ignatz', 'Lysithea', 'Marianne', 'Hilda', 'Flayn', 'Alois', 'Yuri', 'Constance', 'Jeritza'],
-        'Sweet Bun Trio': ['Edelgard', 'Dimitri', 'Ferdinand', 'Linhardt', 'Caspar', 'Bernadetta', 'Ashe', 'Sylvain', 'Mercedes', 'Annette', 'Ingrid', 'Ignatz', 'Lysithea', 'Marianne', 'Hilda', 'Flayn', 'Alois', 'Yuri', 'Constance', 'Jeritza'],
-        'Pheasant Roast with Berry Sauce': ['Claude', 'Ferdinand', 'Linhardt', 'Ashe', 'Sylvain', 'Mercedes', 'Annette', 'Ingrid', 'Raphael', 'Lysithea', 'Flayn', 'Alois', 'Shamir', 'Cyril', 'Yuri', 'Constance', 'Hapi', 'Jeritza', 'Anna'],
-        'Peach Sorbet': ['Edelgard', 'Linhardt', 'Bernadetta', 'Dorothea', 'Ashe', 'Mercedes', 'Annette', 'Lysithea', 'Marianne', 'Hilda', 'Flayn', 'Hanneman', 'Alois', 'Shamir', 'Yuri', 'Constance', 'Jeritza', 'Anna'],
-        'Beast Meat Teppanyaki': ['Claude', 'Caspar', 'Petra', 'Felix', 'Ingrid', 'Raphael', 'Leonie', 'Manuela', 'Gilbert', 'Catherine', 'Shamir', 'Cyril', 'Balthus', 'Hapi', 'Anna'],
-        'Pickled Rabbit Skewers': ['Claude', 'Caspar', 'Petra', 'Felix', 'Ingrid', 'Raphael', 'Lysithea', 'Manuela', 'Gilbert', 'Catherine', 'Shamir', 'Cyril', 'Yuri', 'Balthus', 'Hapi', 'Anna'],
-        'Daphnel Stew': ['Claude', 'Ferdinand', 'Linhardt', 'Caspar', 'Petra', 'Dedue', 'Felix', 'Ingrid', 'Lorenz', 'Raphael', 'Leonie', 'Seteth', 'Manuela', 'Shamir', 'Cyril', 'Yuri', 'Balthus', 'Hapi'],
-        'Gronder Meat Skewers': ['Claude', 'Caspar', 'Petra', 'Felix', 'Ingrid', 'Raphael', 'Leonie', 'Manuela', 'Gilbert', 'Catherine', 'Shamir', 'Cyril', 'Balthus', 'Hapi', 'Jeritza'],
-        'Derdriu-Style Fried Pheasant': ['Claude', 'Caspar', 'Bernadetta', 'Felix', 'Ingrid', 'Raphael', 'Lysithea', 'Hilda', 'Leonie', 'Seteth', 'Hanneman', 'Manuela', 'Gilbert', 'Catherine', 'Cyril', 'Balthus', 'Hapi', 'Anna'],
-        'Vegetable Pasta Salad': ['Edelgard', 'Ferdinand', 'Caspar', 'Bernadetta', 'Dorothea', 'Ashe', 'Mercedes', 'Annette', 'Ingrid', 'Ignatz', 'Marianne', 'Seteth', 'Hanneman', 'Gilbert', 'Shamir', 'Cyril', 'Constance', 'Anna'],
-        'Onion Gratin Soup': ['Edelgard', 'Dimitri', 'Claude', 'Ferdinand', 'Linhardt', 'Dorothea', 'Dedue', 'Mercedes', 'Annette', 'Lorenz', 'Marianne', 'Leonie', 'Flayn', 'Alois', 'Catherine', 'Yuri', 'Hapi', 'Jeritza'],
-        'Country-Style Red Turnip Plate': ['Claude', 'Caspar', 'Bernadetta', 'Dorothea', 'Petra', 'Raphael', 'Hilda', 'Flayn', 'Gilbert', 'Catherine', 'Shamir', 'Yuri', 'Hapi'],
-        'Vegetable Stir-Fry': ['Edelgard', 'Claude', 'Ferdinand', 'Caspar', 'Bernadetta', 'Dorothea', 'Petra', 'Dedue', 'Annette', 'Ignatz', 'Marianne', 'Leonie', 'Manuela', 'Gilbert', 'Shamir', 'Cyril', 'Yuri', 'Hapi'],
-        'Grilled Herring': ['Ferdinand', 'Petra', 'Dedue', 'Mercedes', 'Annette', 'Ingrid', 'Leonie', 'Seteth', 'Flayn', 'Gilbert', 'Alois', 'Catherine', 'Yuri', 'Jeritza'],
-        'Fish and Bean Soup': ['Edelgard', 'Linhardt', 'Dedue', 'Ashe', 'Sylvain', 'Mercedes', 'Annette', 'Lorenz', 'Raphael', 'Ignatz', 'Marianne', 'Hilda', 'Leonie', 'Flayn', 'Manuela', 'Alois', 'Cyril', 'Yuri', 'Hapi', 'Jeritza'],
-        'Fruit and Herring Tart': ['Ferdinand', 'Bernadetta', 'Dedue', 'Sylvain', 'Mercedes', 'Annette', 'Ingrid', 'Lorenz', 'Ignatz', 'Marianne', 'Leonie', 'Seteth', 'Flayn', 'Alois', 'Catherine', 'Constance'],
-        'Fisherman’s Bounty': ['Ferdinand', 'Petra', 'Dedue', 'Ingrid', 'Raphael', 'Ignatz', 'Marianne', 'Hilda', 'Leonie', 'Flayn', 'Manuela', 'Gilbert', 'Alois', 'Catherine', 'Yuri', 'Balthus', 'Hapi', 'Jeritza'],
-        'Fish Sandwich': ['Edelgard', 'Ferdinand', 'Petra', 'Dedue', 'Ashe', 'Sylvain', 'Ingrid', 'Raphael', 'Leonie', 'Seteth', 'Flayn', 'Manuela', 'Gilbert', 'Alois', 'Catherine', 'Yuri', 'Hapi'],
-        'Two-Fish Saute': ['Hubert', 'Bernadetta', 'Dedue', 'Felix', 'Sylvain', 'Mercedes', 'Annette', 'Lorenz', 'Ignatz', 'Lysithea', 'Marianne', 'Hilda', 'Leonie', 'Flayn', 'Hanneman', 'Manuela', 'Alois', 'Catherine', 'Cyril', 'Yuri', 'Constance', 'Jeritza'],
-        'Bourgeois Pike': ['Claude', 'Ferdinand', 'Bernadetta', 'Dedue', 'Lorenz', 'Ignatz', 'Marianne', 'Leonie', 'Seteth', 'Flayn', 'Hanneman', 'Manuela', 'Alois', 'Catherine', 'Constance', 'Anna'],
-        'Sauteed Jerky': ['Dimitri', 'Claude', 'Hubert', 'Caspar', 'Petra', 'Dedue', 'Felix', 'Raphael', 'Manuela', 'Shamir', 'Cyril', 'Yuri', 'Balthus', 'Hapi', 'Anna'],
-        'Spicy Fish and Turnip Stew': ['Hubert', 'Petra', 'Dedue', 'Felix', 'Ashe', 'Sylvain', 'Annette', 'Ingrid', 'Leonie', 'Seteth', 'Manuela', 'Gilbert', 'Balthus', 'Hapi', 'Anna'],
-        'Sweet and Salty Whitefish Saute': ['Hubert', 'Dedue', 'Felix', 'Ashe', 'Sylvain', 'Annette', 'Ingrid', 'Leonie', 'Seteth', 'Manuela', 'Gilbert', 'Balthus', 'Hapi', 'Anna'],
-        'Super-Spicy Fish Dango': ['Hubert', 'Petra', 'Dedue', 'Felix', 'Sylvain', 'Ingrid', 'Ignatz', 'Marianne', 'Leonie', 'Seteth', 'Hanneman', 'Manuela', 'Gilbert', 'Catherine', 'Shamir', 'Balthus', 'Hapi'],
-        'Sauteed Pheasant and Eggs': ['Edelgard', 'Claude', 'Hubert', 'Ferdinand', 'Caspar', 'Felix', 'Sylvain', 'Raphael', 'Ignatz', 'Marianne', 'Seteth', 'Manuela', 'Gilbert', 'Shamir', 'Cyril', 'Constance', 'Hapi', 'Anna'],
-        'Garreg Mach Meat Pie': ['Claude', 'Hubert', 'Linhardt', 'Caspar', 'Dorothea', 'Felix', 'Sylvain', 'Lorenz', 'Raphael', 'Ignatz', 'Hanneman', 'Manuela', 'Gilbert', 'Catherine', 'Balthus'],
-        'Cheesy Verona Stew': ['Dimitri', 'Claude', 'Hubert', 'Bernadetta', 'Petra', 'Sylvain', 'Raphael', 'Marianne', 'Hilda', 'Leonie', 'Seteth', 'Flayn', 'Hanneman', 'Gilbert', 'Catherine', 'Balthus'],
-        'Pickled Seafood and Vegetables': ['Hubert', 'Petra', 'Dedue', 'Annette', 'Raphael', 'Leonie', 'Seteth', 'Flayn', 'Hanneman', 'Gilbert', 'Alois', 'Catherine', 'Hapi', 'Anna'],
-        'Gautier Cheese Gratin': ['Dimitri', 'Claude', 'Hubert', 'Linhardt', 'Dorothea', 'Felix', 'Raphael', 'Hilda', 'Hanneman', 'Catherine', 'Balthus'],
-        'Cabbage and Herring Stew': ['Claude', 'Hubert', 'Lorenz', 'Ignatz', 'Marianne', 'Leonie', 'Flayn', 'Hanneman', 'Manuela', 'Gilbert', 'Catherine', 'Balthus', 'Hapi', 'Jeritza'],
-        'Small Fish Skewers': ['Hapi', 'Jeritza'],
-        'Fried Crayfish': ['Hapi', 'Jeritza', 'Anna'],
-      };
+    function refreshResults() {
       var p1 = document.getElementById('person1').value;
       var p2 = document.getElementById('person2').value;
-      var result = "";
-      for (var dish in dishes) {
-        var people = dishes[dish];
-        if (people.indexOf(p1) >= 0 && people.indexOf(p2) >= 0) result += dish + "<br>";
-      }
       document.getElementById('support').innerHTML = supports(p1, p2);
-      document.getElementById('dishes').innerHTML = result;
+      document.getElementById('dishes').innerHTML = commonDishes(p1, p2).join('<br>');
     }
   </script>
 </html>
